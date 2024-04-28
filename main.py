@@ -195,7 +195,7 @@ def plota_graficos_posicao(dados_bola, dados_robo):
     
     fig.suptitle('Posicao em funcao do tempo', fontsize=16)
 
-    plt.savefig("grafico_posicao.pdf")
+    plt.savefig("graficos/grafico_posicao.pdf")
     
 
 def main():
