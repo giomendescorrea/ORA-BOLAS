@@ -191,9 +191,9 @@ def plota_graficos_posicao(dados_bola, dados_robo):
     plot_y_bola, = eixo[1].plot(tempo, y_bola)
     plot_y_robo, = eixo[1].plot(tempo, y_robo)
 
-    fig.legend((plot_x_bola, plot_x_robo), ('bola', 'robo'), loc='upper right')
+    fig.legend((plot_x_bola, plot_x_robo), ('bola', 'robô'), loc='upper right')
     
-    fig.suptitle('Posicao em funcao do tempo', fontsize=16)
+    fig.suptitle('Posição em função do tempo', fontsize=16)
 
     plt.savefig("graficos/grafico_posicao.pdf")
     
@@ -203,8 +203,8 @@ def main():
     dados_bola = carrega_dados_bola(path_arq)
     
     while True:
-        x_robo = float(input("\ndigite a posicao X do robo: "))
-        y_robo = float(input("digite a posicao X do robo: "))
+        x_robo = float(input("\nDigite a posição X do robô: "))
+        y_robo = float(input("Digite a posição Y do robo: "))
 
         ponto_interceptacao = ponto_menor_distancia(dados_bola, x_robo, y_robo)
 
@@ -216,7 +216,7 @@ def main():
 
         plota_graficos_posicao(dados_bola, dados_interceptacao)
 
-        input_usuario = input("\ngostaria de simular novamente? (S/N) ")
+        input_usuario = input("\nGostaria de simular novamente? (S/N) ")
 
         if input_usuario in ['S', 's']:
             True
