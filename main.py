@@ -105,7 +105,7 @@ def trajetoria_robo(ponto_intercep, x_inicial, y_inicial, trajetoria_bola):
     return dados_trajetoria_robo
 
 def salva_dados_robo(dados_trajetoria):
-    with open('dados_trajetoria_robo.txt', 'w') as arquivo:
+    with open('dados\dados_trajetoria_robo.txt', 'w') as arquivo:
         for linha in dados_trajetoria:
             arquivo.write(f"{linha['t']};{linha['x_robo']};{linha['y_robo']};{linha['vx_robo']};{linha['vy_robo']};{linha['ax_robo']};{linha['ay_robo']};{linha['distancia']}\n")
 
@@ -135,7 +135,7 @@ def exibe_simulacao(dados_bola, dados_robo):
     ax1.set_ylim(0, 8)
     ax2.set_ylim(0, 8)
 
-    img = plt.imread("campo.jpg")
+    img = plt.imread("imagem\campo.jpg")
     ax1.imshow(img, zorder=0, extent=[0, 10, 0, 8])
 
     def update_data(frame):
@@ -243,7 +243,7 @@ def plota_grafico_dist_relativa(dados_robo):
     plt.close()
 
 def main():
-    path_arq = 'dados_trajetoria_bola.txt'
+    path_arq = 'dados\dados_trajetoria_bola.txt'
     dados_bola = carrega_dados_bola(path_arq)
 
     while True:
