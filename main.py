@@ -222,6 +222,26 @@ def plota_graficos_velocidade(dados_bola, dados_robo):
     plt.savefig("graficos/grafico_velocidade.pdf")
     plt.close()
 
+def plota_grafico_dist_relativa(dados_robo):
+    tempo = []
+    distancia = []
+    
+    for linha in range(len(dados_robo)):
+        tempo.append(dados_robo[linha]['t'])
+        distancia.append(dados_robo[linha]['distancia'])
+
+    fig, eixo = plt.subplots()
+
+    eixo.plot(tempo, distancia)
+    eixo.set_xlabel("tempo (s)")
+    eixo.set_ylabel("distancia (m)")
+
+    fig.suptitle('Distância relativa em função do tempo', fontsize=16)
+
+    plt.savefig("graficos/grafico_dist_relativa.pdf")
+
+    plt.close()
+
 def main():
     path_arq = 'dados_trajetoria_bola.txt'
     dados_bola = carrega_dados_bola(path_arq)
@@ -240,6 +260,7 @@ def main():
 
         plota_graficos_posicao(dados_bola, dados_interceptacao)
         plota_graficos_velocidade(dados_bola, dados_interceptacao)
+        plota_grafico_dist_relativa(dados_interceptacao)
 
         input_usuario = input("\nGostaria de simular novamente? (S/N) ")
 
