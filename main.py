@@ -87,6 +87,8 @@ def trajetoria_robo(ponto_intercep, x_inicial, y_inicial, trajetoria_bola):
             x_robo = x_inicial + (vx_robo * trajetoria_bola[instante]['t'])
             y_robo = y_inicial + (vy_robo * trajetoria_bola[instante]['t'])
 
+            distancia = math.sqrt((ponto_intercep['x_bola'] - x_robo)**2 + (ponto_intercep['y_bola'] - y_robo)**2)
+
             robo = {
                 "t": trajetoria_bola[instante]['t'],
                 "x_robo": x_robo,
@@ -94,7 +96,8 @@ def trajetoria_robo(ponto_intercep, x_inicial, y_inicial, trajetoria_bola):
                 "vx_robo": vx_robo,
                 "vy_robo": vy_robo,
                 "ax_robo": aceleracao_x,
-                "ay_robo": aceleracao_y
+                "ay_robo": aceleracao_y,
+                "distancia": distancia
             }
 
             dados_trajetoria_robo.append(robo)
@@ -104,7 +107,7 @@ def trajetoria_robo(ponto_intercep, x_inicial, y_inicial, trajetoria_bola):
 def salva_dados_robo(dados_trajetoria):
     with open('dados_trajetoria_robo.txt', 'w') as arquivo:
         for linha in dados_trajetoria:
-            arquivo.write(f"{linha['t']};{linha['x_robo']};{linha['y_robo']};{linha['vx_robo']};{linha['vy_robo']};{linha['ax_robo']};{linha['ay_robo']}\n")
+            arquivo.write(f"{linha['t']};{linha['x_robo']};{linha['y_robo']};{linha['vx_robo']};{linha['vy_robo']};{linha['ax_robo']};{linha['ay_robo']};{linha['distancia']}\n")
 
 
 def exibe_simulacao(dados_bola, dados_robo):
