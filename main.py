@@ -87,6 +87,8 @@ def trajetoria_robo(ponto_intercep, x_inicial, y_inicial, trajetoria_bola):
             x_robo = x_inicial + (vx_robo * trajetoria_bola[instante]['t'])
             y_robo = y_inicial + (vy_robo * trajetoria_bola[instante]['t'])
 
+            distancia = math.sqrt((ponto_intercep['x_bola'] - x_robo)**2 + (ponto_intercep['y_bola'] - y_robo)**2)
+
             robo = {
                 "t": trajetoria_bola[instante]['t'],
                 "x_robo": x_robo,
@@ -94,7 +96,8 @@ def trajetoria_robo(ponto_intercep, x_inicial, y_inicial, trajetoria_bola):
                 "vx_robo": vx_robo,
                 "vy_robo": vy_robo,
                 "ax_robo": aceleracao_x,
-                "ay_robo": aceleracao_y
+                "ay_robo": aceleracao_y,
+                "distancia": distancia
             }
 
             dados_trajetoria_robo.append(robo)
@@ -104,7 +107,7 @@ def trajetoria_robo(ponto_intercep, x_inicial, y_inicial, trajetoria_bola):
 def salva_dados_robo(dados_trajetoria):
     with open('dados_trajetoria_robo.txt', 'w') as arquivo:
         for linha in dados_trajetoria:
-            arquivo.write(f"{linha['t']};{linha['x_robo']};{linha['y_robo']};{linha['vx_robo']};{linha['vy_robo']};{linha['ax_robo']};{linha['ay_robo']}\n")
+            arquivo.write(f"{linha['t']};{linha['x_robo']};{linha['y_robo']};{linha['vx_robo']};{linha['vy_robo']};{linha['ax_robo']};{linha['ay_robo']};{linha['distancia']}\n")
 
 
 def exibe_simulacao(dados_bola, dados_robo):
@@ -182,6 +185,7 @@ def plota_graficos_posicao(dados_bola, dados_robo):
     fig.suptitle('Posição em função do tempo', fontsize=16)
 
     plt.savefig("graficos/grafico_posicao.pdf")
+    plt.close()
 
 def plota_graficos_velocidade(dados_bola, dados_robo):
     tempo = []
@@ -216,6 +220,27 @@ def plota_graficos_velocidade(dados_bola, dados_robo):
     fig.suptitle('Velocidade em função do tempo', fontsize=16)
 
     plt.savefig("graficos/grafico_velocidade.pdf")
+    plt.close()
+
+def plota_grafico_dist_relativa(dados_robo):
+    tempo = []
+    distancia = []
+    
+    for linha in range(len(dados_robo)):
+        tempo.append(dados_robo[linha]['t'])
+        distancia.append(dados_robo[linha]['distancia'])
+
+    fig, eixo = plt.subplots()
+
+    eixo.plot(tempo, distancia)
+    eixo.set_xlabel("tempo (s)")
+    eixo.set_ylabel("distancia (m)")
+
+    fig.suptitle('Distância relativa em função do tempo', fontsize=16)
+
+    plt.savefig("graficos/grafico_dist_relativa.pdf")
+
+    plt.close()
 
 def main():
     path_arq = 'dados_trajetoria_bola.txt'
@@ -235,6 +260,7 @@ def main():
 
         plota_graficos_posicao(dados_bola, dados_interceptacao)
         plota_graficos_velocidade(dados_bola, dados_interceptacao)
+        plota_grafico_dist_relativa(dados_interceptacao)
 
         input_usuario = input("\nGostaria de simular novamente? (S/N) ")
 
