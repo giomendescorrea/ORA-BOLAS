@@ -182,6 +182,7 @@ def plota_graficos_posicao(dados_bola, dados_robo):
     fig.suptitle('Posição em função do tempo', fontsize=16)
 
     plt.savefig("graficos/grafico_posicao.pdf")
+    plt.close()
 
 def plota_graficos_velocidade(dados_bola, dados_robo):
     tempo = []
@@ -216,6 +217,7 @@ def plota_graficos_velocidade(dados_bola, dados_robo):
     fig.suptitle('Velocidade em função do tempo', fontsize=16)
 
     plt.savefig("graficos/grafico_velocidade.pdf")
+    plt.close()
 
 def main():
     path_arq = 'dados_trajetoria_bola.txt'
