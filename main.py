@@ -136,7 +136,7 @@ def exibe_simulacao(dados_bola, dados_robo):
     ax2.set_ylim(0, 8)
 
     img = plt.imread("imagem\campo.jpg")
-    ax1.imshow(img, zorder=0, extent=[0, 10, 0, 8])
+    ax1.imshow(img, zorder=0, extent=[0, 10, 0, 8], aspect='auto')
 
     def update_data(frame):
         ax1.plot(x_plot_b[:frame], y_plot_b[:frame], color='white', ms=2, ds='steps', marker='.')
