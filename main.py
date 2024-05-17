@@ -242,6 +242,41 @@ def plota_grafico_dist_relativa(dados_robo):
 
     plt.close()
 
+def plota_grafico_aceleracao(dados_bola, dados_robo):
+    tempo = []
+    ax_robo = []
+    ay_robo = []
+
+    ax_bola = []
+    ay_bola = []
+
+    for linha in range(len(dados_robo)):
+        tempo.append(dados_bola[linha]['t'])
+        ax_bola.append(dados_bola[linha]['ax_bola'])
+        ay_bola.append(dados_bola[linha]['ay_bola'])
+
+        ax_robo.append(dados_robo[linha]['ax_robo'])
+        ay_robo.append(dados_robo[linha]['ay_robo'])
+
+    fig, eixo = plt.subplots(1, 2, sharey=True)
+
+    eixo[0].set_xlabel("tempo (s)")
+    eixo[1].set_xlabel("tempo (s)")
+    eixo[0].set_ylabel("aceleração X (m/s^2)")
+    eixo[1].set_ylabel("aceleração Y (m/s^2)")
+
+    plot_ax_bola, = eixo[0].plot(tempo, ax_bola)
+    plot_ax_robo, = eixo[0].plot(tempo, ax_robo)
+    plot_ay_bola, = eixo[1].plot(tempo, ay_bola)
+    plot_ay_robo, = eixo[1].plot(tempo, ay_robo)
+
+    fig.legend((plot_ax_bola, plot_ax_robo), ('bola', 'robo'), loc='upper right')
+
+    fig.suptitle('Aceleração em função do tempo', fontsize=16)
+
+    plt.savefig("graficos/grafico_aceleracao.pdf")
+    plt.close()
+
 def main():
     path_arq = 'dados\dados_trajetoria_bola.txt'
     dados_bola = carrega_dados_bola(path_arq)
@@ -261,6 +296,7 @@ def main():
         plota_graficos_posicao(dados_bola, dados_interceptacao)
         plota_graficos_velocidade(dados_bola, dados_interceptacao)
         plota_grafico_dist_relativa(dados_interceptacao)
+        plota_grafico_aceleracao(dados_bola, dados_interceptacao)
 
         input_usuario = input("\nGostaria de simular novamente? (S/N) ")
 
